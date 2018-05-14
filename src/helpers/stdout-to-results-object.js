@@ -1,6 +1,6 @@
 var helpers = require('./index')
 
-module.exports = function stdoutToResultsObject (stdout) {
+module.exports = function stdoutToResultsObject (stdout, includeContent, cwd) {
   var results = [];
   var lines = stdout.split("\n");
   var iLines = lines.length;
@@ -14,9 +14,9 @@ module.exports = function stdoutToResultsObject (stdout) {
         status: helpers.codeToStatus(parts[ 0 ])
       }
 
-      if (sgf.includeContent) {
+      if (includeContent) {
         try {
-          result.content = fs.readFileSync(sgf.cwd + "/" + result.filename, {
+          result.content = fs.readFileSync(cwd + "/" + result.filename, {
             encoding: "utf8"
           });
         } catch (err) {

@@ -25,7 +25,14 @@ var sgf = function(filter, callback) {
                 if (err || stderr) {
                     callback(err || new Error(stderr));
                 } else {
-                    callback(null, helpers.stdoutToResultsObject(stdout));
+                    callback(
+                        null,
+                        helpers.stdoutToResultsObject(
+                            stdout,
+                            sgf.includeContent,
+                            sgf.cwd
+                        )
+                    );
                 }
             });
         }
