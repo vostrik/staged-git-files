@@ -1,3 +1,3 @@
-var sgf = require("./src/modules/staged")
+var sgf = require('./src/modules/staged')
 
-module.exports = sgf;
+module.exports = sgf

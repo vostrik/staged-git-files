@@ -17,16 +17,16 @@ module.exports = function codeToStatus (code) {
   ** ======================================================================================================= */
 
   var map = {
-    "A": "Added",
-    "C": "Copied",
-    "D": "Deleted",
-    "M": "Modified",
-    "R": "Renamed",
-    "T": "Type-Change",
-    "U": "Unmerged",
-    "X": "Unknown",
-    "B": "Broken"
+    'A': 'Added',
+    'C': 'Copied',
+    'D': 'Deleted',
+    'M': 'Modified',
+    'R': 'Renamed',
+    'T': 'Type-Change',
+    'U': 'Unmerged',
+    'X': 'Unknown',
+    'B': 'Broken'
   }
 
-  return map[ code.charAt(0) ];
+  return map[code.charAt(0)]
 }
