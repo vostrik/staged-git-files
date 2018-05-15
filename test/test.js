@@ -1,31 +1,34 @@
-require('should')
-var fs = require('fs')
-exec = require('child_process').exec
-test_folder = process.cwd() + '/test/test-dir'
+require('should');
+var fs = require('fs');
+var del = require('del')
+exec = require('child_process').exec;
+test_folder = process.cwd() + '/test/test-dir';
 
-asyncCatch = function (done, test) {
-  return function (err, value) {
-    if (err) {
-      done(err)
-    } else {
-      try {
-        test(value)
-        done()
-      } catch (err) {
-        done(err)
-      }
+asyncCatch = function(done, test){
+    return function(err, value){
+        if(err){
+            done(err);
+        }
+        else{
+            try{
+                test(value);
+                done();
+            }
+            catch(err){
+                done(err);
+            }
+        }
     }
   }
 }
 
 cleanUp = function (callback) {
-  exec('rm -rf \'' + test_folder + '\'', function (err, stderr, stdout) {
-    if (err || stderr) {
-      callback(err || new Error(stderr))
-    } else {
-      callback(null, stdout)
+    try {
+        var paths = del.sync(test_folder)
+        callback(null, paths)
+    } catch (error) {
+        callback(error)
     }
-  })
 }
 
 setup = function (callback) {
@@ -57,7 +60,12 @@ run = function (command, callback) {
 }
 
 newGit = function (callback) {
-  run('rm -rf .git && git init', callback)
+    try {
+        del.sync('.git')
+        run('git init', callback)
+    } catch (error) {
+        callback(error)
+    }
 }
 
 randomFileName = function (lengths) {

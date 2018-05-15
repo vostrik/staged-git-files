@@ -2,9 +2,11 @@
   "name": "staged-git-files",
   "version": "1.1.1",
   "devDependencies": {
-    "mocha": "^2.0.1",
-    "should": "~2.0.1",
-    "standard": "^11.0.1"
+    "del": "3.0.0",
+    "jest": "22.4.3",
+    "mocha": "5.1.1",
+    "should": "13.2.1",
+    "standard": "11.0.1"
   },
   "description": "get a list of staged git files and their status",
   "main": "index.js",
