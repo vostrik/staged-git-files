@@ -1,4 +1,4 @@
-var helpers = require('./index')
+var codeToStatus = require('./code-to-status')
 
 module.exports = function stdoutToResultsObject (stdout, includeContent, cwd) {
   var results = [];
@@ -11,7 +11,7 @@ module.exports = function stdoutToResultsObject (stdout, includeContent, cwd) {
       var parts = line.split("\t");
       var result = {
         filename: parts[ 2 ] || parts[ 1 ],
-        status: helpers.codeToStatus(parts[ 0 ])
+        status: codeToStatus(parts[ 0 ])
       }
 
       if (includeContent) {
