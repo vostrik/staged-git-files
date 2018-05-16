@@ -39,6 +39,7 @@ var sgf = function (filter, callback) {
   })
 }
 
+sgf.getHead = helpers.getHead
 sgf.cwd = process.cwd()
 sgf.debug = false
 sgf.includeContent = false
