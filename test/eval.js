@@ -1,6 +1,8 @@
-require('should');
+var path = require('path')
+require('should')
 
 var test = require('./test')
+var constants = require('../src/constants')
 
 describe('As a module', function () {
 
@@ -38,7 +40,7 @@ describe('As a module', function () {
         it('firstHead in a repo without commits', function (done) {
             var sgf = test.newSGF()
             sgf.getHead(test.asyncCatch(done, function (head) {
-                head.should.equal(sgf.firstHead)
+                head.should.equal(constants.firstHead)
             }))
         })
 
@@ -93,23 +95,28 @@ describe('As a module', function () {
                 }
                 data.sort(sorter)
 
-                exec('../../bin/cli.js', { cwd: test.testFolder }, function (err, stdout, stderr) {
-                    if (err) return done(err)
-                    var results = stdout.trim().split('\n').map(function (line) {
-                        var p = line.split(' ')
-                        var status = p[ 0 ]
-                        var filename = p.slice(1).join(' ')
-                        return {
-                            status: status,
-                            filename: filename
+                exec(
+                    path.normalize('../../bin/cli.js'),
+                    { cwd: test.testFolder },
+                    function (err, stdout, stderr) {
+                        if (err) return done(err)
+                        var results = stdout.trim()
+                            .split('\n')
+                            .map(function (line) {
+                                var p = line.split(' ')
+                                var status = p[ 0 ]
+                                var filename = p.slice(1).join(' ')
+                                return {
+                                    status: status,
+                                    filename: filename
+                                }
+                        })
+                        results.sort(sorter)
+                        for (var i = 0; i < results.length; i++) {
+                            results[ i ].filename.should.equal(data[ i ].filename)
+                            results[ i ].status.should.equal('Added')
                         }
-                    })
-                    results.sort(sorter)
-                    for (var i = 0; i < results.length; i++) {
-                        results[ i ].filename.should.equal(data[ i ].filename)
-                        results[ i ].status.should.equal('Added')
-                    }
-                    done()
+                        done()
                 })
             })
         })
