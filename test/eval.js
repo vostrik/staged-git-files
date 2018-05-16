@@ -1,15 +1,17 @@
+require('should');
+
 var test = require('./test')
 
 describe('As a module', function () {
 
     describe('current working directory should', function () {
         it('default to node\'s current working directory', function () {
-            var sgf = require('../')
+            var sgf = require('../').sgf
             sgf.cwd.should.equal(process.cwd())
         })
 
         it('be over writable', function () {
-            var sgf = require('../')
+            var sgf = require('../').sgf
             sgf.cwd = test.testFolder
             sgf.cwd.should.equal(test.testFolder)
         })
@@ -114,7 +116,7 @@ describe('As a module', function () {
 
         it('I should return the file paths and their git status', function (done) {
             this.timeout(1000000000)
-            test.addFiles(1000, function (err, data) {
+            test.addFiles(10, function (err, data) {
                 if (err) {
                     done(err)
                 }

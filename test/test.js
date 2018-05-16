@@ -1,4 +1,3 @@
-require('should');
 var fs = require('fs')
 var path = require('path')
 var fsExtra = require('fs-extra')
@@ -65,7 +64,7 @@ function setup (callback) {
 function newSGF () {
     delete require.cache[ require.resolve('../') ]
 
-    var sgf = require('../')
+    var sgf = require('../').sgf
     sgf.cwd = testFolder
     return sgf
 }
