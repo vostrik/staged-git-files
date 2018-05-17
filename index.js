@@ -1,7 +1,4 @@
-var sgf = require('./src/modules/staged')
-var bgf = require('./src/modules/branches')
-
 module.exports = {
-  sgf: sgf,
-  branchDiffFiles: bgf
+  stagedGitFiles: require('./src/modules/staged-git-files.module'),
+  diffGitFiles: require('./src/modules/diff-git-files.module')
 }
