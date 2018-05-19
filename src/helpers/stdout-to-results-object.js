@@ -1,19 +1,17 @@
-var codeToStatus = require('./code-to-status')
+const fs = require('fs')
+
+const codeToStatus = require('./code-to-status')
 
 module.exports = function stdoutToResultsObject (stdout, includeContent, cwd) {
-  var results = []
-  var lines = stdout.split('\n')
-  var iLines = lines.length
-  var files_with_errors = 0
-  while (iLines--) {
-    var line = lines[iLines]
-    if (line != '') {
-      var parts = line.split('\t')
-      var result = {
+  const results = stdout
+    .split('\n')
+    .reduce((results, line) => {
+      if (line === '') return results
+      const parts = line.split('\t')
+      const result = {
         filename: parts[2] || parts[1],
         status: codeToStatus(parts[0])
       }
-
       if (includeContent) {
         try {
           result.content = fs.readFileSync(cwd + '/' + result.filename, {
@@ -23,9 +21,8 @@ module.exports = function stdoutToResultsObject (stdout, includeContent, cwd) {
           result.err = err
         }
       }
-
       results.push(result)
-    }
-  }
+      return results
+    }, [])
   return results
 }
