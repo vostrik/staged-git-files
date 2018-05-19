@@ -20,4 +20,8 @@ describe('codeToStatus() handler', () => {
         expect(codeToStatus(code)).toBe(status)
       })
     })
+
+  it('returns error on incorrect git status', () => {
+    expect(() => codeToStatus('Ж')).toThrowError(/Wrong git status/)
+  })
 })

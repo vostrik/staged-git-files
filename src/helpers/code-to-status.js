@@ -16,7 +16,7 @@ module.exports = function codeToStatus (code) {
   ** Status letter M may be followed by a score (denoting the percentage of dissimilarity) for file rewrites.
   ** ======================================================================================================= */
 
-  var map = {
+  const map = {
     'A': 'Added',
     'C': 'Copied',
     'D': 'Deleted',
@@ -27,6 +27,11 @@ module.exports = function codeToStatus (code) {
     'X': 'Unknown',
     'B': 'Broken'
   }
+  const status = map[code.charAt(0)]
 
-  return map[code.charAt(0)]
+  if (status === undefined) {
+    throw new Error('Wrong git status')
+  }
+
+  return status
 }
