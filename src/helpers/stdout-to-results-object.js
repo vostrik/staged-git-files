@@ -2,7 +2,9 @@ const fs = require('fs')
 
 const codeToStatus = require('./code-to-status')
 
-module.exports = function stdoutToResultsObject (stdout, includeContent, cwd = '') {
+module.exports = stdoutToResultsObject
+
+function stdoutToResultsObject (stdout, includeContent, cwd = '') {
   const results = stdout
     .split('\n')
     .reduce((results, line) => {
